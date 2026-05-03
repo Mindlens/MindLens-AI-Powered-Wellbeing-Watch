@@ -59,29 +59,29 @@ const HomePage = () => {
             transition={{ duration: 0.7 }}
             className="mx-auto max-w-2xl text-center"
           >
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-sm font-medium text-accent">
+            <div className="hero-badge mb-4 inline-flex items-center gap-2 rounded-full bg-accent/20 px-4 py-1.5 text-sm font-medium text-accent">
               <Shield className="h-4 w-4" />
               Private & Secure
             </div>
-            <h1 className="font-display text-4xl font-bold tracking-tight text-primary-foreground md:text-6xl">
+            <h1 className="hero-title font-display text-4xl font-bold tracking-tight text-primary-foreground md:text-6xl">
               MindLens
             </h1>
-            <p className="mt-3 font-display text-lg text-primary-foreground/80 md:text-xl">
+            <p className="hero-subtitle mt-3 font-display text-lg text-primary-foreground/80 md:text-xl">
               AI Student Wellbeing Analyzer
             </p>
-            <p className="mx-auto mt-6 max-w-lg text-primary-foreground/60">
+            <p className="hero-desc mx-auto mt-6 max-w-lg text-primary-foreground/60">
               Early, private warnings using AI-powered journaling, facial emotion detection, and lifestyle analysis — before it's too late.
             </p>
             <div className="mt-8 flex justify-center gap-4">
               <Link
                 to="/journal"
-                className="rounded-lg gradient-accent px-6 py-3 font-medium text-accent-foreground shadow-glow transition-transform hover:scale-105"
+                className="hero-primary-btn rounded-lg gradient-accent px-6 py-3 font-medium text-accent-foreground shadow-glow transition-transform hover:scale-105"
               >
                 Start Journaling
               </Link>
               <Link
                 to="/dashboard"
-                className="rounded-lg border border-primary-foreground/20 px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-foreground/10"
+                className="hero-ghost-btn rounded-lg border border-primary-foreground/20 px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-foreground/10"
               >
                 View Dashboard
               </Link>
