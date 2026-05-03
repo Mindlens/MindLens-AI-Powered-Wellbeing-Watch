@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Brain, BookOpen, Camera, ClipboardList, LayoutDashboard, FileQuestion } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   { path: "/", label: "Home", icon: Brain },
@@ -40,6 +41,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                 {item.label}
               </Link>
             ))}
+            <ThemeToggle />
           </div>
           {/* Mobile nav */}
           <div className="flex md:hidden items-center gap-1">
@@ -57,6 +59,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                 <item.icon className="h-5 w-5" />
               </Link>
             ))}
+            <ThemeToggle />
           </div>
         </div>
       </nav>
