@@ -205,7 +205,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(10, 15, 28, 0.55);
+    background: radial-gradient(ellipse at center, rgba(10,15,28,0.45) 0%, rgba(10,15,28,0.7) 100%);
     pointer-events: none;
   }
   .dark .hero-title {
