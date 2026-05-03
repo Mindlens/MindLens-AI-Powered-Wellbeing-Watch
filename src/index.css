@@ -160,7 +160,34 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(13, 17, 23, 0.6);
+    background: rgba(10, 15, 28, 0.55);
     pointer-events: none;
+  }
+  .dark .hero-title {
+    color: #FFFFFF !important;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.8), 0 1px 12px rgba(0,0,0,0.9);
+  }
+  .dark .hero-subtitle {
+    color: #E2E8F0 !important;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.9);
+  }
+  .dark .hero-desc {
+    color: #CBD5E1 !important;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.9);
+  }
+  .dark .hero-badge {
+    color: #FFFFFF !important;
+    background: rgba(255,255,255,0.1) !important;
+    border: 1px solid hsl(var(--accent));
+  }
+  .dark .hero-ghost-btn {
+    color: #FFFFFF !important;
+    border-color: #FFFFFF !important;
+  }
+  .dark .hero-ghost-btn:hover {
+    background: rgba(255,255,255,0.1);
+  }
+  .dark .hero-primary-btn {
+    color: #0D1117 !important;
   }
 }
