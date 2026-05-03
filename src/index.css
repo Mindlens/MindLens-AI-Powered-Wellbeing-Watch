@@ -210,15 +210,20 @@
   }
   .dark .hero-title {
     color: #FFFFFF !important;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.8), 0 1px 12px rgba(0,0,0,0.9);
+    background: linear-gradient(180deg, #FFFFFF 0%, #E6FFFB 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 24px hsl(var(--accent) / 0.45), 0 2px 18px rgba(0,0,0,0.85);
+    filter: drop-shadow(0 2px 12px rgba(0,0,0,0.6));
   }
   .dark .hero-subtitle {
-    color: #E2E8F0 !important;
-    text-shadow: 0 1px 12px rgba(0,0,0,0.9);
+    color: #F1F5F9 !important;
+    text-shadow: 0 1px 14px rgba(0,0,0,0.95);
   }
   .dark .hero-desc {
-    color: #CBD5E1 !important;
-    text-shadow: 0 1px 12px rgba(0,0,0,0.9);
+    color: #E2E8F0 !important;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.95);
   }
   .dark .hero-badge {
     color: #FFFFFF !important;
