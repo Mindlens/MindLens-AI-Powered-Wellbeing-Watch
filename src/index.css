@@ -79,8 +79,8 @@
     --secondary: 215 19% 16%;
     --secondary-foreground: 213 67% 96%;
     --muted: 215 19% 14%;
-    /* #8B949E */
-    --muted-foreground: 215 9% 58%;
+    /* Brighter for AA contrast on dark surfaces */
+    --muted-foreground: 215 16% 75%;
     --accent: 172 66% 50%;
     --accent-foreground: 215 28% 7%;
     --destructive: 0 62% 50%;
