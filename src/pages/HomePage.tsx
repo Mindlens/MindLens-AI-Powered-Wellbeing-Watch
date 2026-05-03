@@ -49,10 +49,10 @@ const HomePage = () => {
     <div>
       {/* Hero */}
       <section className="relative overflow-hidden gradient-hero">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 z-0">
           <img src={heroBrain} alt="" className="h-full w-full object-cover opacity-30 mix-blend-lighten" />
         </div>
-        <div className="container relative mx-auto px-4 py-24 md:py-32">
+        <div className="container relative z-10 mx-auto px-4 py-24 md:py-32">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
