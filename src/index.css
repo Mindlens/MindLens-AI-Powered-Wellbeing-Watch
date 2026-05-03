@@ -79,8 +79,8 @@
     --secondary: 215 19% 16%;
     --secondary-foreground: 213 67% 96%;
     --muted: 215 19% 14%;
-    /* #8B949E */
-    --muted-foreground: 215 9% 58%;
+    /* Brighter for AA contrast on dark surfaces */
+    --muted-foreground: 215 16% 75%;
     --accent: 172 66% 50%;
     --accent-foreground: 215 28% 7%;
     --destructive: 0 62% 50%;
@@ -126,6 +126,51 @@
   }
   h1, h2, h3, h4 {
     font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+@layer base {
+  /* Global focus-visible ring for keyboard accessibility */
+  :where(a, button, [role="button"], input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: calc(var(--radius) - 4px);
+  }
+
+  /* Form inputs: clearer borders + focus in dark mode */
+  .dark input,
+  .dark textarea,
+  .dark select {
+    background-color: hsl(var(--card));
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--border));
+  }
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: hsl(215 16% 65%);
+  }
+  .dark input:hover,
+  .dark textarea:hover,
+  .dark select:hover {
+    border-color: hsl(var(--accent) / 0.6);
+  }
+  .dark input:focus-visible,
+  .dark textarea:focus-visible,
+  .dark select:focus-visible {
+    border-color: hsl(var(--accent));
+    box-shadow: 0 0 0 3px hsl(var(--accent) / 0.25);
+    outline: none;
+  }
+
+  /* Subtle teal glow on hover for buttons/links in dark mode */
+  .dark button:not(:disabled):hover,
+  .dark a[class*="rounded"]:hover {
+    box-shadow: 0 0 0 1px hsl(var(--accent) / 0.4), 0 0 16px hsl(var(--accent) / 0.2);
+  }
+
+  /* Stronger contrast for muted text in dark mode */
+  .dark .text-muted-foreground {
+    color: hsl(215 16% 78%) !important;
   }
 }
 
