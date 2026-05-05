@@ -76,8 +76,8 @@ const QuestionnairePage = () => {
             <button onClick={() => { setResult(null); setAnswers(Array(9).fill(0)); }} className="flex-1 rounded-lg border border-border px-4 py-3 font-medium text-foreground hover:bg-muted">
               Retake
             </button>
-            <Link to="/dashboard" className="flex flex-1 items-center justify-center rounded-lg gradient-accent px-4 py-3 font-medium text-accent-foreground shadow-glow">
-              View Dashboard
+            <Link to="/chat" className="flex flex-1 items-center justify-center rounded-lg gradient-accent px-4 py-3 font-medium text-accent-foreground shadow-glow">
+              Continue to AI Chat
             </Link>
           </div>
         </motion.div>

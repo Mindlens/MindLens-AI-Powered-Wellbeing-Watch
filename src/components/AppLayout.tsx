@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Brain, BookOpen, Camera, ClipboardList, LayoutDashboard, FileQuestion } from "lucide-react";
+import { Brain, BookOpen, Camera, ClipboardList, LayoutDashboard, FileQuestion, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/ThemeToggle";
 
@@ -9,6 +9,7 @@ const navItems = [
   { path: "/camera", label: "Mood Camera", icon: Camera },
   { path: "/burnout", label: "Burnout Check", icon: ClipboardList },
   { path: "/questionnaire", label: "Questionnaire", icon: FileQuestion },
+  { path: "/chat", label: "AI Chat", icon: MessageCircle },
   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
 ];
 

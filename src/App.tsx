@@ -11,6 +11,7 @@ import JournalPage from "@/pages/JournalPage";
 import CameraPage from "@/pages/CameraPage";
 import BurnoutPage from "@/pages/BurnoutPage";
 import QuestionnairePage from "@/pages/QuestionnairePage";
+import ChatPage from "@/pages/ChatPage";
 import DashboardPage from "@/pages/DashboardPage";
 import NotFound from "./pages/NotFound";
 
@@ -31,6 +32,7 @@ const App = () => (
               <Route path="/camera" element={<CameraPage />} />
               <Route path="/burnout" element={<BurnoutPage />} />
               <Route path="/questionnaire" element={<QuestionnairePage />} />
+              <Route path="/chat" element={<ChatPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
