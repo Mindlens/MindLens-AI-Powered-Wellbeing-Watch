@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 # MindLens – AI Student Wellbeing Analyzer
 
 MindLens is a comprehensive mental health and wellbeing platform for students, featuring AI-powered insights and supportive tools.
+=======
+🧠 MindLens – Wellbeing Watch
+
+MindLens is an AI-powered mental wellbeing web application designed to help users track their mood, analyze emotional patterns, and enhance their mental health through intelligent insights and interactive dashboards. Built using modern development and AI tools, it offers a simple, intuitive, and accessible approach to daily wellbeing monitoring.
+>>>>>>> 64566e07cf44fbf330ae8f64c0e00e6a2f4c857f
 
 ## Features
 
+<<<<<<< HEAD
 ✨ **AI-Powered Analysis**
 - **Journal Analysis**: AI-powered sentiment analysis detects stress, anxiety, and emotional patterns
 - **Mood Camera**: Real-time facial emotion detection to understand emotional state
@@ -62,29 +69,70 @@ The backend will run on `http://localhost:5000/`
 ## User Flow
 
 1. **Home** - Overview of all features
-2. **Journal** - Write and get sentiment analysis
-3. **Mood Camera** - Facial emotion detection
-4. **Burnout Check** - Lifestyle assessment
-5. **Questionnaire** - Mental health questions → **redirects to:**
-6. **AI Support Chat** (NEW!) - Talk to supportive AI assistant → **then go to:**
-7. **Dashboard** - View all insights and trends
+# MindLens – AI Student Wellbeing Analyzer
+
+MindLens is an AI-powered mental wellbeing web application designed to help students track mood, analyze emotional patterns, and get supportive insights through journaling, camera-based mood detection, burnout analysis, a questionnaire, and an AI support chat.
+
+## Features
+
+✨ **AI-Powered Analysis**
+- **Journal Analysis**: Sentiment analysis detects stress, anxiety, and emotional patterns
+- **Mood Camera**: Real-time facial emotion detection to understand emotional state
+- **Burnout Risk Predictor**: Assess burnout based on sleep, study habits, and lifestyle
+- **Mental Health Questionnaire**: Structured mental health self-check
+- **AI Support Chat**: Context-aware emotional support chatbot
+- **Insights Dashboard**: View trends and personalized suggestions
+
+🔒 **Privacy First**
+- All data stays in your browser unless you explicitly use the chat backend
+- Questionnaire and wellbeing state are kept in app state during the session
+- API keys are never exposed to the frontend
+
+## Quick Start
+
+### Frontend Setup
+
+```bash
+npm install
+npm run dev
+```
+
+The app will be available at `http://localhost:8080/`
+
+### Backend Setup for AI Chat
+
+```bash
+cd server
+npm install
+copy .env.example .env
+npm run dev
+```
+
+Add your Gemini API key to `server/.env`:
+
+```env
+GEMINI_API_KEY=your_api_key_here
+PORT=5000
+NODE_ENV=development
+```
+
+The backend will run on `http://localhost:5000/`
+
+## User Flow
+
+1. Home
+2. Journal
+3. Mood Camera
+4. Burnout Check
+5. Questionnaire
+6. AI Support Chat
+7. Dashboard
 
 ## Tech Stack
 
-**Frontend:**
-- React 18 with TypeScript
-- Vite for fast development
-- Tailwind CSS + shadcn/ui for styling
-- Framer Motion for animations
-- React Router for navigation
-- Recharts for data visualization
-- React Query for state management
+**Frontend:** React, TypeScript, Vite, Tailwind CSS, shadcn/ui, Framer Motion, React Router, Recharts
 
-**Backend:**
-- Express.js
-- Google Generative AI (Gemini)
-- TypeScript
-- CORS enabled for secure requests
+**Backend:** Express.js, Google Generative AI (Gemini), TypeScript, CORS
 
 ## Project Structure
 
@@ -92,26 +140,12 @@ The backend will run on `http://localhost:5000/`
 MindLens/
 ├── src/
 │   ├── pages/
-│   │   ├── HomePage.tsx
-│   │   ├── JournalPage.tsx
-│   │   ├── CameraPage.tsx
-│   │   ├── BurnoutPage.tsx
-│   │   ├── QuestionnairePage.tsx
-│   │   ├── ChatPage.tsx (NEW!)
-│   │   ├── DashboardPage.tsx
-│   │   └── NotFound.tsx
 │   ├── components/
-│   │   ├── ChatMessage.tsx (NEW!)
-│   │   ├── TypingIndicator.tsx (NEW!)
-│   │   ├── AppLayout.tsx
-│   │   └── ... (UI components)
 │   ├── context/
-│   │   └── WellbeingContext.tsx
 │   ├── lib/
-│   │   └── analysis.ts
 │   └── App.tsx
 ├── server/
-│   ├── server.ts (NEW!)
+│   ├── server.ts
 │   ├── package.json
 │   ├── tsconfig.json
 │   ├── .env.example
@@ -121,114 +155,62 @@ MindLens/
 
 ## Development
 
-### Running Both Frontend & Backend
+### Run Both Services
 
-**Terminal 1 - Frontend:**
+Frontend:
 ```bash
 npm run dev
 ```
 
-**Terminal 2 - Backend:**
+Backend:
 ```bash
 cd server
 npm run dev
 ```
 
-### Build for Production
+### Build
 
-**Frontend:**
+Frontend:
 ```bash
 npm run build
 ```
 
-**Backend:**
+Backend:
 ```bash
 cd server
 npm run build
-```
-
-### Run Tests
-
-```bash
-npm run test
 ```
 
 ## API Documentation
 
-The AI Chat uses a backend API to securely communicate with Gemini:
+- `POST /api/chat` - Send a chat message and get a response
+- `GET /api/health` - Health check
 
-- **POST** `/api/chat` - Send a message and get AI response
-- **GET** `/api/health` - Health check
-
-See [server/README.md](./server/README.md) for full API documentation.
+See [server/README.md](./server/README.md) for backend details.
 
 ## Design System
 
-MindLens uses a cohesive design with:
-- **Colors**: Teal/green accents, soft pastels
-- **Typography**: Clear hierarchy with display fonts
-- **Effects**: Glassmorphism, soft shadows, smooth transitions
-- **Components**: Rounded corners, gradient buttons, card-based layouts
+MindLens uses teal and green accents, rounded cards, gradient buttons, soft shadows, and glassmorphism-inspired surfaces.
 
 ## Important Notes
 
 ⚠️ **Disclaimer**
-MindLens is a student hackathon project and is **NOT a substitute for professional medical advice, diagnosis, or treatment**. If you're experiencing a mental health crisis, please contact a mental health professional or call your local emergency services.
-
-🔐 **Privacy & Security**
-- Chat messages are only stored in browser memory during the session
-- Questionnaire responses are stored locally using React Context
-- No personal data is transmitted except to the Gemini API (via secure backend)
-- API keys are NEVER exposed to the frontend
+MindLens is a student project and is **not a substitute for professional medical advice, diagnosis, or treatment**.
 
 ## Troubleshooting
 
 ### Chat not working?
 - Ensure backend is running on `localhost:5000`
-- Check that `GEMINI_API_KEY` is set in `server/.env`
-- Look at browser console (F12) for error messages
-- Try refreshing the page
+- Confirm `GEMINI_API_KEY` is set in `server/.env`
+- If Gemini quota is unavailable, the app falls back to a local supportive response engine
 
 ### Frontend won't start?
-- Clear `node_modules` and reinstall: `rm -rf node_modules && npm install`
-- Try killing port 8080: `lsof -ti:8080 | xargs kill` (Mac/Linux)
-- Check that Node.js version is 18+
-
-## Contributing
-
-This is a student hackathon project. Feel free to fork and modify!
+- Reinstall dependencies with `npm install`
+- Check that Node.js 18+ is installed
 
 ## License
 
 MIT - Free to use and modify
 
-## Support
-
-For issues or questions, please open a GitHub issue.
-
+**Made with care for student wellbeing**
 ---
-
-**Made with ❤️ for student wellbeing**
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
