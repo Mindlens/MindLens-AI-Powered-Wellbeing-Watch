@@ -13,8 +13,7 @@ interface ChatMessage {
   timestamp: number;
 }
 
-const FRIENDLY_ERROR =
-  "I'm having trouble connecting right now. Please try again in a moment.";
+const FRIENDLY_ERROR = "I'm having a moment — please try again shortly 💙";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
