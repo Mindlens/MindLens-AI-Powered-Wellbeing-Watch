@@ -5,12 +5,11 @@ import { toast } from "sonner";
 import { analyzeSentiment, type SentimentResult } from "@/lib/analysis";
 import { useWellbeing } from "@/context/WellbeingContext";
 
-type Lang = "EN" | "HI" | "HI-EN";
+type Lang = "EN" | "HI";
 
 const langToCode: Record<Lang, string> = {
   EN: "en-IN",
   HI: "hi-IN",
-  "HI-EN": "hi-IN",
 };
 
 const JournalPage = () => {
@@ -18,7 +17,7 @@ const JournalPage = () => {
   const [interim, setInterim] = useState("");
   const [result, setResult] = useState<SentimentResult | null>(null);
   const [listening, setListening] = useState(false);
-  const [lang, setLang] = useState<Lang>("HI-EN");
+  const [lang, setLang] = useState<Lang>("EN");
   const [supported, setSupported] = useState(true);
   const recognitionRef = useRef<any>(null);
   const silenceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -171,7 +170,7 @@ const JournalPage = () => {
               )}
               {supported && (
                 <div className="flex items-center rounded-full border border-input bg-card p-0.5 text-xs">
-                  {(["EN", "HI", "HI-EN"] as Lang[]).map((l) => (
+                  {(["EN", "HI"] as Lang[]).map((l) => (
                     <button
                       key={l}
                       onClick={() => setLang(l)}
