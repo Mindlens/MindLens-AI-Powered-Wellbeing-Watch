@@ -84,9 +84,10 @@ const BurnoutPage = () => {
 
           <button
             onClick={handlePredict}
-            className="flex w-full items-center justify-center gap-2 rounded-lg gradient-accent px-4 py-3 font-medium text-accent-foreground shadow-glow transition-transform hover:scale-[1.02]"
+            disabled={loadingAI}
+            className="flex w-full items-center justify-center gap-2 rounded-lg gradient-accent px-4 py-3 font-medium text-accent-foreground shadow-glow transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60"
           >
-            <Brain className="h-4 w-4" />
+            {loadingAI ? <Loader2 className="h-4 w-4 animate-spin" /> : <Brain className="h-4 w-4" />}
             Predict Burnout Risk
           </button>
         </div>
