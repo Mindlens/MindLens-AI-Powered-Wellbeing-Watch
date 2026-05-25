@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Slider } from "@/components/ui/slider";
-import { Brain, Moon, BookOpen, Monitor, Users, Zap } from "lucide-react";
+import { Brain, Moon, BookOpen, Monitor, Users, Zap, Loader2, Sparkles } from "lucide-react";
+import { toast } from "sonner";
 import { calculateBurnoutRisk } from "@/lib/analysis";
 import { useWellbeing } from "@/context/WellbeingContext";
+import { supabase } from "@/integrations/supabase/client";
+
+interface AISummary {
+  risk: "Low" | "Moderate" | "High";
+  reasons: string[];
+  recommendations: string[];
+}
 
 const BurnoutPage = () => {
   const [sleepHours, setSleepHours] = useState(7);
@@ -12,13 +20,29 @@ const BurnoutPage = () => {
   const [socialInteraction, setSocialInteraction] = useState(5);
   const [stressLevel, setStressLevel] = useState(5);
   const [result, setResult] = useState<ReturnType<typeof calculateBurnoutRisk> | null>(null);
+  const [aiSummary, setAiSummary] = useState<AISummary | null>(null);
+  const [loadingAI, setLoadingAI] = useState(false);
   const { addEntry } = useWellbeing();
 
-  const handlePredict = () => {
+  const handlePredict = async () => {
     const r = calculateBurnoutRisk({ sleepHours, studyHours, screenTime, socialInteraction, stressLevel });
     setResult(r);
     addEntry({ burnoutRisk: r.risk, burnoutScore: r.score });
+    setAiSummary(null);
+    setLoadingAI(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("analyze-burnout", {
+        body: { context: { sleepHours, studyHours, screenTime, socialInteraction, stressLevel, computedScore: r.score, computedRisk: r.risk } },
+      });
+      if (error || !data || data.error) throw new Error();
+      setAiSummary(data as AISummary);
+    } catch {
+      toast.error("Couldn't generate personalized summary right now 💙");
+    } finally {
+      setLoadingAI(false);
+    }
   };
+
 
   const riskColors = { Low: "text-success", Medium: "text-warning", High: "text-destructive" };
   const riskBg = { Low: "bg-success/10", Medium: "bg-warning/10", High: "bg-destructive/10" };
