@@ -101,15 +101,51 @@ const BurnoutPage = () => {
               </div>
             </div>
             <div className="rounded-xl bg-card p-6 shadow-card">
-              <h3 className="font-display font-semibold text-card-foreground">Suggestions</h3>
-              <ul className="mt-3 space-y-2">
-                {result.suggestions.map((s, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-accent shrink-0" />
-                    {s}
-                  </li>
-                ))}
-              </ul>
+              <h3 className="font-display font-semibold text-card-foreground flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-accent" /> Personalized AI Summary
+              </h3>
+              {loadingAI && (
+                <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+                  <Loader2 className="h-4 w-4 animate-spin" /> Generating insights...
+                </div>
+              )}
+              {aiSummary && (
+                <div className="mt-4 space-y-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Risk Level</p>
+                    <p className={`font-display text-2xl font-bold ${riskColors[aiSummary.risk === "Moderate" ? "Medium" : aiSummary.risk]}`}>{aiSummary.risk}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Key Reasons</p>
+                    <ul className="space-y-2">
+                      {aiSummary.reasons.map((s, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-warning shrink-0" />{s}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Recommendations</p>
+                    <ul className="space-y-2">
+                      {aiSummary.recommendations.map((s, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-accent shrink-0" />{s}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+              {!loadingAI && !aiSummary && (
+                <ul className="mt-3 space-y-2">
+                  {result.suggestions.map((s, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-accent shrink-0" />{s}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </motion.div>
         )}
