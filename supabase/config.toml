@@ -1,1 +1,10 @@
 project_id = "xtunjarjbbgsghssofuf"
+
+[functions.ai-chat]
+verify_jwt = false
+
+[functions.analyze-journal]
+verify_jwt = false
+
+[functions.analyze-burnout]
+verify_jwt = false
