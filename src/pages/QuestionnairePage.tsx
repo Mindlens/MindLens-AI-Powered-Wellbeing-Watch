@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ClipboardCheck } from "lucide-react";
+import { ClipboardCheck, Loader2, Sparkles } from "lucide-react";
+import { toast } from "sonner";
 import { scoreQuestionnaire } from "@/lib/analysis";
 import { useWellbeing } from "@/context/WellbeingContext";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+
+interface AISummary {
+  risk: "Low" | "Moderate" | "High";
+  reasons: string[];
+  recommendations: string[];
+}
 
 const questions = [
   "I feel nervous or on edge",
