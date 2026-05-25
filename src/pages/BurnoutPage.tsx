@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Slider } from "@/components/ui/slider";
-import { Brain, Moon, BookOpen, Monitor, Users, Zap } from "lucide-react";
+import { Brain, Moon, BookOpen, Monitor, Users, Zap, Loader2, Sparkles } from "lucide-react";
+import { toast } from "sonner";
 import { calculateBurnoutRisk } from "@/lib/analysis";
 import { useWellbeing } from "@/context/WellbeingContext";
+import { supabase } from "@/integrations/supabase/client";
+
+interface AISummary {
+  risk: "Low" | "Moderate" | "High";
+  reasons: string[];
+  recommendations: string[];
+}
 
 const BurnoutPage = () => {
   const [sleepHours, setSleepHours] = useState(7);
@@ -12,13 +20,29 @@ const BurnoutPage = () => {
   const [socialInteraction, setSocialInteraction] = useState(5);
   const [stressLevel, setStressLevel] = useState(5);
   const [result, setResult] = useState<ReturnType<typeof calculateBurnoutRisk> | null>(null);
+  const [aiSummary, setAiSummary] = useState<AISummary | null>(null);
+  const [loadingAI, setLoadingAI] = useState(false);
   const { addEntry } = useWellbeing();
 
-  const handlePredict = () => {
+  const handlePredict = async () => {
     const r = calculateBurnoutRisk({ sleepHours, studyHours, screenTime, socialInteraction, stressLevel });
     setResult(r);
     addEntry({ burnoutRisk: r.risk, burnoutScore: r.score });
+    setAiSummary(null);
+    setLoadingAI(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("analyze-burnout", {
+        body: { context: { sleepHours, studyHours, screenTime, socialInteraction, stressLevel, computedScore: r.score, computedRisk: r.risk } },
+      });
+      if (error || !data || data.error) throw new Error();
+      setAiSummary(data as AISummary);
+    } catch {
+      toast.error("Couldn't generate personalized summary right now 💙");
+    } finally {
+      setLoadingAI(false);
+    }
   };
+
 
   const riskColors = { Low: "text-success", Medium: "text-warning", High: "text-destructive" };
   const riskBg = { Low: "bg-success/10", Medium: "bg-warning/10", High: "bg-destructive/10" };
@@ -60,9 +84,10 @@ const BurnoutPage = () => {
 
           <button
             onClick={handlePredict}
-            className="flex w-full items-center justify-center gap-2 rounded-lg gradient-accent px-4 py-3 font-medium text-accent-foreground shadow-glow transition-transform hover:scale-[1.02]"
+            disabled={loadingAI}
+            className="flex w-full items-center justify-center gap-2 rounded-lg gradient-accent px-4 py-3 font-medium text-accent-foreground shadow-glow transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-60"
           >
-            <Brain className="h-4 w-4" />
+            {loadingAI ? <Loader2 className="h-4 w-4 animate-spin" /> : <Brain className="h-4 w-4" />}
             Predict Burnout Risk
           </button>
         </div>
@@ -77,15 +102,51 @@ const BurnoutPage = () => {
               </div>
             </div>
             <div className="rounded-xl bg-card p-6 shadow-card">
-              <h3 className="font-display font-semibold text-card-foreground">Suggestions</h3>
-              <ul className="mt-3 space-y-2">
-                {result.suggestions.map((s, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-accent shrink-0" />
-                    {s}
-                  </li>
-                ))}
-              </ul>
+              <h3 className="font-display font-semibold text-card-foreground flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-accent" /> Personalized AI Summary
+              </h3>
+              {loadingAI && (
+                <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+                  <Loader2 className="h-4 w-4 animate-spin" /> Generating insights...
+                </div>
+              )}
+              {aiSummary && (
+                <div className="mt-4 space-y-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Risk Level</p>
+                    <p className={`font-display text-2xl font-bold ${riskColors[aiSummary.risk === "Moderate" ? "Medium" : aiSummary.risk]}`}>{aiSummary.risk}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Key Reasons</p>
+                    <ul className="space-y-2">
+                      {aiSummary.reasons.map((s, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-warning shrink-0" />{s}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Recommendations</p>
+                    <ul className="space-y-2">
+                      {aiSummary.recommendations.map((s, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-accent shrink-0" />{s}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+              {!loadingAI && !aiSummary && (
+                <ul className="mt-3 space-y-2">
+                  {result.suggestions.map((s, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-accent shrink-0" />{s}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </motion.div>
         )}
