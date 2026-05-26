@@ -69,6 +69,7 @@ const AppLayout = memo(({ children }: { children: React.ReactNode }) => {
       <main>{children}</main>
     </div>
   );
-};
+});
+AppLayout.displayName = "AppLayout";
 
 export default AppLayout;
