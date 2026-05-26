@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
 import { Brain, TrendingDown, TrendingUp, Activity, Lightbulb } from "lucide-react";
@@ -7,16 +8,16 @@ const DashboardPage = () => {
   const { entries, latestEntry } = useWellbeing();
   const latest = latestEntry();
 
-  const trendData = entries.map((e) => ({
+  const trendData = useMemo(() => entries.map((e) => ({
     date: e.date.slice(5),
     burnout: e.burnoutScore ?? 0,
     wellbeing: e.questionnaireScore ? Math.round((1 - e.questionnaireScore / 5) * 100) : 50,
-  }));
+  })), [entries]);
 
-  const moodData = entries.map((e) => ({
+  const moodData = useMemo(() => entries.map((e) => ({
     date: e.date.slice(5),
     mood: e.mood === "😊" ? 3 : e.mood === "😐" ? 2 : e.mood === "😟" ? 1 : 2,
-  }));
+  })), [entries]);
 
   const stats = [
     {
