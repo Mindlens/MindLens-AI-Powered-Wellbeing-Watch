@@ -1,7 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
-import { Brain, BookOpen, Camera, ClipboardList, LayoutDashboard, FileQuestion, MessageCircle } from "lucide-react";
+import {
+  Brain,
+  BookOpen,
+  Camera,
+  ClipboardList,
+  LayoutDashboard,
+  FileQuestion,
+  MessageCircle,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/ThemeToggle";
+import { Analytics } from "@vercel/analytics/next";
 
 const navItems = [
   { path: "/", label: "Home", icon: Brain },
@@ -26,7 +35,9 @@ const AppLayout = memo(({ children }: { children: React.ReactNode }) => {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg gradient-accent">
               <Brain className="h-5 w-5 text-accent-foreground" />
             </div>
-            <span className="font-display text-xl font-bold text-foreground">MindLens</span>
+            <span className="font-display text-xl font-bold text-foreground">
+              MindLens
+            </span>
           </Link>
           <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
@@ -37,7 +48,7 @@ const AppLayout = memo(({ children }: { children: React.ReactNode }) => {
                   "flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 active:scale-95",
                   location.pathname === item.path
                     ? "bg-accent text-accent-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted",
                 )}
               >
                 <item.icon className="h-4 w-4" />
@@ -56,7 +67,7 @@ const AppLayout = memo(({ children }: { children: React.ReactNode }) => {
                   "flex items-center justify-center rounded-lg p-2 transition-all duration-200 active:scale-95",
                   location.pathname === item.path
                     ? "bg-accent text-accent-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 <item.icon className="h-5 w-5" />
@@ -67,6 +78,7 @@ const AppLayout = memo(({ children }: { children: React.ReactNode }) => {
         </div>
       </nav>
       <main>{children}</main>
+      <Analytics />
     </div>
   );
 });
