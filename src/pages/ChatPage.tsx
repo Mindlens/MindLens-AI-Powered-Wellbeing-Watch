@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Send, MessageCircle, Loader, SkipForward } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -69,8 +69,7 @@ const ChatPage = () => {
         ...prev,
         { role: "assistant", content: data.reply, timestamp: Date.now() },
       ]);
-    } catch (err) {
-      console.error("Chat error:", err);
+    } catch {
       setMessages((prev) => [
         ...prev,
         { role: "assistant", content: FRIENDLY_ERROR, timestamp: Date.now() },
@@ -108,7 +107,7 @@ const ChatPage = () => {
 
         <div className="flex-1 overflow-y-auto mb-6 space-y-4 rounded-xl bg-card/50 p-4 shadow-card">
           {messages.map((msg, idx) => (
-            <ChatMessage key={idx} message={msg} />
+            <ChatMessage key={msg.timestamp + "-" + idx} message={msg} animate={idx === messages.length - 1} />
           ))}
           {isLoading && <TypingIndicator />}
           <div ref={messagesEndRef} />

@@ -13,7 +13,9 @@ const navItems = [
   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
 ];
 
-const AppLayout = ({ children }: { children: React.ReactNode }) => {
+import { memo } from "react";
+
+const AppLayout = memo(({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
 
   return (
@@ -67,6 +69,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       <main>{children}</main>
     </div>
   );
-};
+});
+AppLayout.displayName = "AppLayout";
 
 export default AppLayout;
