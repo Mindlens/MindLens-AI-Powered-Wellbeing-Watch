@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BookOpen, Camera, ClipboardList, LayoutDashboard, Shield, AlertTriangle } from "lucide-react";
-import heroBrain from "@/assets/hero-brain.jpg";
+import heroBrain from "@/assets/hero-brain.webp";
 
 const features = [
   {
@@ -50,7 +50,7 @@ const HomePage = () => {
       {/* Hero */}
       <section className="relative overflow-hidden gradient-hero">
         <div className="absolute inset-0 z-0">
-          <img src={heroBrain} alt="" className="h-full w-full object-cover opacity-30 mix-blend-lighten" />
+          <img src={heroBrain} alt="" width="1920" height="1080" fetchPriority="high" decoding="async" className="h-full w-full object-cover opacity-30 mix-blend-lighten" />
         </div>
         <div className="container relative z-10 mx-auto px-4 py-24 md:py-32">
           <motion.div

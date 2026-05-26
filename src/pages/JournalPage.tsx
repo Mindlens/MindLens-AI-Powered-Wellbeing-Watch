@@ -205,8 +205,9 @@ const JournalPage = () => {
             </div>
             <button
               onClick={handleAnalyze}
-              disabled={!text.trim() || analyzing}
-              className="flex items-center gap-2 rounded-lg gradient-accent px-5 py-2.5 font-medium text-accent-foreground shadow-glow transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100"
+              disabled={wordCount < 10 || analyzing}
+              title={wordCount < 10 ? "Write at least 10 words to analyze" : "Analyze your entry"}
+              className="flex items-center gap-2 rounded-lg gradient-accent px-5 py-2.5 font-medium text-accent-foreground shadow-glow transition-all hover:scale-105 active:scale-95 disabled:bg-muted disabled:bg-none disabled:text-muted-foreground disabled:opacity-60 disabled:shadow-none disabled:hover:scale-100"
             >
               {analyzing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
               {analyzing ? "Analyzing..." : "Analyze"}
