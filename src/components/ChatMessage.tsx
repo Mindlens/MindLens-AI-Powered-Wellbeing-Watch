@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
 
 interface Message {
@@ -10,7 +11,7 @@ interface ChatMessageProps {
   message: Message;
 }
 
-const ChatMessage = ({ message }: ChatMessageProps) => {
+const ChatMessage = memo(({ message, animate }: ChatMessageProps & { animate?: boolean }) => {
   const isUser = message.role === "user";
 
   return (
