@@ -22,10 +22,29 @@ const navItems = [
   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
 ];
 
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 
 const AppLayout = memo(({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
+  const [AnalyticsComp, setAnalyticsComp] =
+    useState<React.ComponentType | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const mod = await import("@vercel/analytics/next");
+        if (mounted && mod?.Analytics) setAnalyticsComp(() => mod.Analytics);
+      } catch (e) {
+        // fail silently — analytics is optional
+        // eslint-disable-next-line no-console
+        console.warn("Analytics not loaded:", e);
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -78,7 +97,7 @@ const AppLayout = memo(({ children }: { children: React.ReactNode }) => {
         </div>
       </nav>
       <main>{children}</main>
-      <Analytics />
+      {AnalyticsComp ? <AnalyticsComp /> : null}
     </div>
   );
 });
