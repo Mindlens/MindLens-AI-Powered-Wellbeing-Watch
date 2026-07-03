@@ -96,6 +96,7 @@ Create a `.env` file and add:
 VITE_SUPABASE_PROJECT_ID=your_project_id
 VITE_SUPABASE_PUBLISHABLE_KEY=your_publishable_key
 VITE_SUPABASE_URL=your_supabase_url
+LOVABLE_API_KEY=your_ai_api_key
 ```
 
 ### 5. Run the development server
